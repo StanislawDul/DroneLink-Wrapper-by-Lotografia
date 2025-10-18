@@ -1,16 +1,10 @@
 package com.dev.lotografia
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 
 class MainActivity : ComponentActivity() {
   private val targetPackage = "com.dronelink.dronelink"
@@ -74,12 +69,12 @@ class MainActivity : ComponentActivity() {
 
   private fun openPlayStore(packageName: String) {
     try {
-      startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
-    } catch (e: android.content.ActivityNotFoundException) {
+      startActivity(Intent(Intent.ACTION_VIEW, "market://details?id=$packageName".toUri()))
+    } catch (_: android.content.ActivityNotFoundException) {
       startActivity(
         Intent(
           Intent.ACTION_VIEW,
-          Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+          "https://play.google.com/store/apps/details?id=$packageName".toUri()
         )
       )
     }
@@ -88,7 +83,7 @@ class MainActivity : ComponentActivity() {
   private fun askForOverlayPermission() {
     val intent = Intent(
       Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-      Uri.parse("package:$packageName")
+      "package:$packageName".toUri()
     )
     Toast.makeText(this, "Włącz uprawnienie 'Rysowanie nad innymi aplikacjami'", Toast.LENGTH_LONG)
       .show()
