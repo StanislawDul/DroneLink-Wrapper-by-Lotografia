@@ -1,0 +1,28 @@
+[
+  {
+    "category": "Planowanie",
+    "hints": [
+      {
+        "title": "Wskazówka 1",
+        "content": "Wybierz tryb mapping. Zaznacz opcję ścieżki grid. Ustaw kamerę na kąt 45 st."
+      },
+      {
+        "title": "Wskazówka 2",
+        "content": "Pamiętaj przed startem zgłosić lot w aplikacji DroneTower."
+      }
+    ]
+  },
+  {
+    "category": "Ustawianie",
+    "hints": [
+      {
+        "title": "Długa wskazówka 1",
+        "content": "Wybierz tryb mapping. Zaznacz opcję ścieżki grid. Ustaw kamerę na kąt 45 st."
+      },
+      {
+        "title": "Długa wskazówka 2",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed sagittis leo. Cras vestibulum a dui at efficitur. Donec pharetra faucibus sagittis. Maecenas pellentesque ante felis, egestas posuere nisl dignissim egestas. Etiam vehicula ligula vel mi placerat mollis. Vestibulum ante lorem, volutpat eget sapien vitae, tempor ornare ligula. Suspendisse lacus urna, bibendum sed tortor ac, condimentum luctus ligula. In commodo convallis purus et condimentum. Pellentesque eu leo ut metus bibendum viverra nec in arcu.\n\nFusce vel ante at purus rhoncus malesuada quis fringilla nibh. Sed finibus justo sapien, in gravida mi ultrices vel. Suspendisse maximus, sem at placerat malesuada, nunc velit tempor quam, a facilisis dolor magna sed nulla. Fusce accumsan luctus ipsum, vel scelerisque magna blandit eget. Curabitur sollicitudin nibh gravida orci faucibus, eget fringilla erat mattis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sagittis ante elit, a rhoncus justo fermentum a. Ut eu mauris turpis. Vivamus euismod feugiat est, nec aliquet justo cursus at. Ut pharetra condimentum velit, quis convallis nisi tincidunt ut. Integer iaculis arcu quam, a fermentum velit scelerisque id. Suspendisse finibus at dolor vel ultrices. "
+      }
+    ]
+  }
+]
