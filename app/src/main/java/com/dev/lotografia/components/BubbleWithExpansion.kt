@@ -28,7 +28,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -49,10 +48,9 @@ fun BubbleWithExpansion(
   viewModel: HintViewModel,
   screenSize: MutableState<Size>,
   onDrag: (Float, Float) -> Unit,
-  onDragEnd: () -> Unit
+  onDragEnd: () -> Unit,
+  setPosition: () -> Unit
 ) {
-
-
   val screenWidth = screenSize.value.width.toInt()
   val screenHeight = screenSize.value.height.toInt()
   val partScreenWidth = (screenWidth * 0.3).toInt()
@@ -63,13 +61,9 @@ fun BubbleWithExpansion(
   // animowana szerokość prostokąta
   val width by animateDpAsState(targetValue = if (expanded) partScreenWidth.dp else 48.dp)
   val height by animateDpAsState(targetValue = if (expanded) (screenHeight * 0.4).dp else 48.dp)
-  var bubbleX by remember { mutableIntStateOf(screenWidth / 2) }
-  val expandToLeft = bubbleX > screenWidth / 2
 
   val cornerRadius by animateDpAsState(targetValue = if (expanded) 16.dp else 32.dp)
   val logoSize by animateDpAsState(targetValue = if (expanded) 42.dp else 48.dp)
-
-
 
   Box(
     modifier = modifier
@@ -77,14 +71,23 @@ fun BubbleWithExpansion(
       .pointerInput(Unit) {
         detectDragGestures(
           onDrag = { change, dragAmount ->
-            change.consume()
-            onDrag(dragAmount.x, dragAmount.y)
-            bubbleX += dragAmount.x.toInt()
+            if (!expanded) {
+              change.consume()
+              onDrag(dragAmount.x, dragAmount.y)
+            }
           },
-          onDragEnd = { onDragEnd() }
+          onDragEnd = {
+            if (!expanded) {
+              onDragEnd()
+            }
+          }
         )
       }
-      .clickable { expanded = !expanded }
+      .clickable {
+        expanded = !expanded
+        if (expanded)
+          setPosition()
+      }
       .clip(RoundedCornerShape(cornerRadius))
       .background(Color.Transparent)
       .width(width)
@@ -94,52 +97,11 @@ fun BubbleWithExpansion(
     Column(
       horizontalAlignment = Alignment.Start,
       verticalArrangement = Arrangement.Top,
-      modifier = Modifier.wrapContentHeight().fillMaxHeight()
+      modifier = Modifier
+        .wrapContentHeight()
+        .fillMaxHeight()
     )
     {
-      if (expandToLeft && expanded) {
-        AnimatedVisibility(
-          visible = expanded,
-          enter = slideInHorizontally(
-            initialOffsetX = { it },
-            animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy)
-          ),
-          exit = slideOutHorizontally(
-            targetOffsetX = { it },
-            animationSpec = tween(durationMillis = 200)
-          )
-        ) {
-          Column {
-            Row {
-              HintSelector(
-                viewModel = viewModel, modifier = Modifier
-                  .width((width - logoSize - 18.dp))
-                  .clip(RoundedCornerShape(16.dp))
-                  .padding(0.dp, 0.dp, 2.dp, 0.dp)
-              )
-              Image(
-                painter = painterResource(id = R.drawable.lotografia_logotype_no_text),
-                contentDescription = null,
-                modifier = Modifier
-                  .size(logoSize)
-                  .clip(CircleShape)
-                  .background(Color.White.copy(alpha = 0.9f))
-                  .padding(top = 1.dp)
-              )
-            }
-
-            GlassyPanel(
-              modifier = Modifier.fillMaxHeight(),
-              viewModel = viewModel,
-              width,
-              height,
-              onClose = { expanded = false }
-            )
-          }
-
-        }
-
-      }
       if (!expanded)
         Image(
           painter = painterResource(id = R.drawable.lotografia_logotype_no_text),
@@ -151,7 +113,7 @@ fun BubbleWithExpansion(
             .padding(4.dp)
         )
 
-      if (!expandToLeft && expanded) {
+      if (expanded) {
         AnimatedVisibility(
           visible = expanded,
           enter = slideInHorizontally(
@@ -176,7 +138,7 @@ fun BubbleWithExpansion(
               )
               HintSelector(
                 viewModel = viewModel, modifier = Modifier
-                  .width((width - logoSize - 18.dp))
+                  .width((width - logoSize))
                   .clip(RoundedCornerShape(16.dp))
                   .padding(2.dp, 0.dp, 0.dp, 0.dp)
               )

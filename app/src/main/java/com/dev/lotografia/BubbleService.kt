@@ -9,6 +9,7 @@ import android.os.Looper
 import android.view.Gravity
 import android.view.WindowManager
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -66,8 +67,7 @@ class BubbleService : LifecycleService(), ViewModelStoreOwner, SavedStateRegistr
   }
 
   private fun createOverlay() {
-    val displayMetrics = resources.displayMetrics
-    var paramsX = displayMetrics.widthPixels
+    var paramsX = 0
     var paramsY = 200
 
     var isDragging = false
@@ -111,6 +111,7 @@ class BubbleService : LifecycleService(), ViewModelStoreOwner, SavedStateRegistr
         val screenSize = remember { mutableStateOf(Size(0f, 0f)) }
         val context = LocalContext.current
         val currentContext by rememberUpdatedState(context)
+        val bubbleSize = 64.dp
 
 
         LaunchedEffect(currentContext) {
@@ -118,12 +119,17 @@ class BubbleService : LifecycleService(), ViewModelStoreOwner, SavedStateRegistr
             .computeCurrentWindowMetrics(currentContext)
           val bounds = metrics.bounds
           screenSize.value = Size(bounds.width().toFloat(), bounds.height().toFloat())
+
+          bubbleParams.x = screenSize.value.width.toInt() - bubbleSize.value.toInt()
+          windowManager.updateViewLayout(this@apply, bubbleParams)
+          paramsX = bubbleParams.x
+          paramsY = bubbleParams.y
         }
+
 
         val viewModel: HintViewModel = viewModel(
           factory = ViewModelProvider.AndroidViewModelFactory(context.applicationContext as Application)
         )
-        val bubbleSize = 64.dp
         val density = LocalDensity.current
         var bubbleCenterX by remember { mutableFloatStateOf(0f) }
         var bubbleCenterY by remember { mutableFloatStateOf(0f) }
@@ -146,7 +152,7 @@ class BubbleService : LifecycleService(), ViewModelStoreOwner, SavedStateRegistr
             }
 
             // sprawdź czy blisko krzyżyka
-            checkCloseProximity(bubbleCenterX, bubbleCenterY)
+            checkCloseProximity(screenSize, bubbleCenterX, bubbleCenterY)
 
           },
           onDragEnd = {
@@ -155,6 +161,16 @@ class BubbleService : LifecycleService(), ViewModelStoreOwner, SavedStateRegistr
               onDestroy()
             }
             isDragging = false
+          },
+          setPosition = {
+            bubbleParams.y = (screenSize.value.height * 0.2f).toInt()
+            if(bubbleParams.x < (screenSize.value.width * 0.5f).toInt())
+              bubbleParams.x = 0
+            else if(bubbleParams.x > (screenSize.value.width * 0.5f).toInt())
+              bubbleParams.x = screenSize.value.width.toInt() - bubbleSize.value.toInt()
+            windowManager.updateViewLayout(this@apply, bubbleParams)
+            paramsX = bubbleParams.x
+            paramsY = bubbleParams.y
           }
         )
       }
@@ -191,20 +207,22 @@ class BubbleService : LifecycleService(), ViewModelStoreOwner, SavedStateRegistr
   }
 
   private fun checkCloseProximity(
+    screenSize: MutableState<Size>,
     bubbleCenterX: Float,
     bubbleCenterY: Float,
   ) {
-    val screenWidth = resources.displayMetrics.widthPixels
-    val screenHeight = resources.displayMetrics.heightPixels
-    val closeCenterX = (screenWidth / 2).toFloat()
+    val screenWidth = screenSize.value.width
+    val screenHeight = screenSize.value.height
+    val closeCenterX = (screenWidth / 2)
     val closeCenterY = screenHeight - 150.dp.toPx(this)
 
     val distance = hypot(bubbleCenterX - closeCenterX, bubbleCenterY - closeCenterY)
 
+    val maxDistance = 100f
     when {
-      distance < 200f -> {
+      distance < maxDistance -> {
         isNearCloseZone = true
-        val pullStrength = (200f - distance) / 200f
+        val pullStrength = (maxDistance - distance) / maxDistance
         val moveX = (closeCenterX - bubbleCenterX) * 0.15f * pullStrength
         val moveY = (closeCenterY - bubbleCenterY) * 0.15f * pullStrength
 
