@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -54,13 +53,22 @@ fun BubbleWithExpansion(
   val screenWidth = screenSize.value.width.toInt()
   val screenHeight = screenSize.value.height.toInt()
   val partScreenWidth = (screenWidth * 0.3).toInt()
-  val halfScreenHeight = screenHeight / 2
+
+  val ratio = if (screenHeight == 0 || screenWidth == 0) 1
+    else if (screenHeight >= screenWidth) screenHeight / screenWidth else screenWidth / screenHeight
 
   var expanded by remember { mutableStateOf(false) }
 
   // animowana szerokość prostokąta
   val width by animateDpAsState(targetValue = if (expanded) partScreenWidth.dp else 48.dp)
-  val height by animateDpAsState(targetValue = if (expanded) (screenHeight * 0.4).dp else 48.dp)
+  val height by animateDpAsState(
+    targetValue = if (expanded) {
+      if (ratio >= 1.9)
+        (screenHeight * 0.2).dp
+      else
+        (screenHeight * 0.4).dp
+    } else 48.dp
+  )
 
   val cornerRadius by animateDpAsState(targetValue = if (expanded) 16.dp else 32.dp)
   val logoSize by animateDpAsState(targetValue = if (expanded) 42.dp else 48.dp)
@@ -91,7 +99,7 @@ fun BubbleWithExpansion(
       .clip(RoundedCornerShape(cornerRadius))
       .background(Color.Transparent)
       .width(width)
-      .heightIn(0.dp, halfScreenHeight.dp)
+//      .heightIn(0.dp, halfScreenHeight.dp)
       .height(height.value.dp)
   ) {
     Column(

@@ -219,23 +219,13 @@ class BubbleService : LifecycleService(), ViewModelStoreOwner, SavedStateRegistr
     val distance = hypot(bubbleCenterX - closeCenterX, bubbleCenterY - closeCenterY)
 
     val maxDistance = 100f
-    when {
+    isNearCloseZone = when {
       distance < maxDistance -> {
-        isNearCloseZone = true
-        val pullStrength = (maxDistance - distance) / maxDistance
-        val moveX = (closeCenterX - bubbleCenterX) * 0.15f * pullStrength
-        val moveY = (closeCenterY - bubbleCenterY) * 0.15f * pullStrength
-
-        val params = (bubbleView?.layoutParams as? WindowManager.LayoutParams)
-        if (params != null) {
-          params.x += moveX.toInt()
-          params.y += moveY.toInt()
-          windowManager.updateViewLayout(bubbleView, params)
-        }
+        true
       }
 
       else -> {
-        isNearCloseZone = false
+        false
       }
     }
 
