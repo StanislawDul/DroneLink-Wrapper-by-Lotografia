@@ -1,27 +1,146 @@
 [
   {
-    "category": "Planowanie",
+    "category": "Przed planowaniem misji",
     "hints": [
       {
-        "title": "Wskazówka 1",
-        "content": "Wybierz tryb mapping. Zaznacz opcję ścieżki grid. Ustaw kamerę na kąt 45 st."
+        "title": "Bezpieczeństwo",
+        "content": "1. Upewnij się że miejsce jest bezpieczne do lotu.\n2. Obserwój nalot blisko miejsca z największym ryzykiem dla misji np. linii wysokiego napięcia"
+
       },
       {
-        "title": "Wskazówka 2",
-        "content": "Pamiętaj przed startem zgłosić lot w aplikacji DroneTower."
+        "title": "Tarczki fotogrametryczne",
+        "content": "Rozłóż tarczki fotogrametryczne dookoła budynku nad którym wykonujesz nalot. Ustaw je ok 1 m od ściany."
+      },
+      {
+        "title": "Zgłoszenie misji",
+        "content": "Zgłoś lot w aplikacji DroneTower."
+      },
+      {
+        "title": "Wysokośc nalotu",
+        "content": "1. Włączamy siatkę na ekranie z krzyżykiem na jego środku.\n2. Ustawiamy gimbal na kąt 0 st.\n3. Podlatujemy do budynku i wznosimy się tak długo aż krzyżyk na środku ekranu przetnie sie z najwyższym punktem dachu\n4. Wysokość pierwszej części nalotu = wys. budynku + 20 m, zaś drugiej części 20 m lub wys. budynku + 3m (jeśli dach wyżej niż 17 m)."
       }
     ]
   },
   {
-    "category": "Ustawianie",
+    "category": "Tworzenie nowej misji",
     "hints": [
       {
-        "title": "Długa wskazówka 1",
-        "content": "Wybierz tryb mapping. Zaznacz opcję ścieżki grid. Ustaw kamerę na kąt 45 st."
+        "title": "Nowy projekt",
+        "content": "Naciśnij przycisk +Create w głównym panelu aplikacji"
       },
       {
-        "title": "Długa wskazówka 2",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed sagittis leo. Cras vestibulum a dui at efficitur. Donec pharetra faucibus sagittis. Maecenas pellentesque ante felis, egestas posuere nisl dignissim egestas. Etiam vehicula ligula vel mi placerat mollis. Vestibulum ante lorem, volutpat eget sapien vitae, tempor ornare ligula. Suspendisse lacus urna, bibendum sed tortor ac, condimentum luctus ligula. In commodo convallis purus et condimentum. Pellentesque eu leo ut metus bibendum viverra nec in arcu.\n\nFusce vel ante at purus rhoncus malesuada quis fringilla nibh. Sed finibus justo sapien, in gravida mi ultrices vel. Suspendisse maximus, sem at placerat malesuada, nunc velit tempor quam, a facilisis dolor magna sed nulla. Fusce accumsan luctus ipsum, vel scelerisque magna blandit eget. Curabitur sollicitudin nibh gravida orci faucibus, eget fringilla erat mattis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sagittis ante elit, a rhoncus justo fermentum a. Ut eu mauris turpis. Vivamus euismod feugiat est, nec aliquet justo cursus at. Ut pharetra condimentum velit, quis convallis nisi tincidunt ut. Integer iaculis arcu quam, a fermentum velit scelerisque id. Suspendisse finibus at dolor vel ultrices. "
+        "title": "Wybór folderu",
+        "content": "Upewnij się że znajdujesz się we właściwym folderze. Powyrzej listy trybów jest sekcja Repository* z rozwijaną listą folderów"
+      },
+      {
+        "title": "Wybór trybu",
+        "content": "Wybierz tryb Map"
+      },
+      {
+        "title": "Nazwa misji",
+        "content": "Domyślnie misja nazywa się New Map Plan. Nazywamy swoją misję naciskając w ikonę ołówka obok."
+      },
+      {
+        "title": "Przejście do konfiguracji misji",
+        "content": "1. Naciśnij ikonę GPS, by aplikacja wskazała miejsce w którym aktualnie jesteś.\n2. Naciśnij dowolne miejsce na mapie. Pojawi się domyślny tor lotu drona i ustawienia parametrów misji."
+      }
+    ]
+  },
+  {
+    "category": "Mapa 1 - parametry",
+    "hints": [
+      {
+        "title": "Obszar lotu",
+        "content": "1. Naciśnij pomarańczową ikonkę kłódki z prawej strony by odblokować ustawienia położenia.\n2. Oddal obszar nalotu od interesującego Cię budynku o co najmniej wysokość pierwszej części lotu (wys. budynku+ 20 m).\n3. naciśnij ikonę zielonej kłódki by zablokować obszar nalotu."
+      },
+      {
+        "title": "Parametry podstawowe",
+        "content": "1. Naciskamy zieloną okrągłą ikonę mapy w środku obszaru nalotu by zobaczyć parametry misji.\n2. Wybieramy naszego drona (do Mini 4 Pro trzeba przewinąć listę w górę).\n3. Wpisujemy obliczoną wysokość pierwszej części nalotu w Altitude*\n4. Camera overlap ustawiamy zgodnie ze schematem:\n a)Dla wysokości lotu do 25 m: Front Overlap = 75% i Side Overlap = 70%\n b) Dla wysokości lotu od 25 do 35 m: Front Overlap = 85% i Side Overlap = 80%\n c) Dla wysokości lotu powyżej 35 m: Front Overlap = 89% i Side Overlap = 85%\n"
+      },
+      {
+        "title": "Parametry zaawansowane",
+        "content": "1. Naciśnij ADVANCED\n2. Ustaw Pattern na Grid\n Ustaw Gimal Pitch na -45 stopni (koniecznie z minusem!)"
+      }
+    ]
+  },
+  {
+    "category": "Mapa 2 - parametry",
+    "hints": [
+      {
+        "title": "Kopiowanie pierwszej części nalotu",
+        "content": "Naciskamy przycisk kopiowania (znajduje się na górze podstawowych ustawień) Od razu przejdziemy do ustawień drugiej części misji"
+      },
+      {
+        "title": "Parametry podstawowe",
+        "content": "1. Wybieramy naszego drona.\n2. Wpisujemy obliczoną wysokość drugiej części nalotu.\n3. Camera overlap ustawiamy Front Overlap = 75% i Side Overlap = 70%.\n4. Flight Direction ustawiamy na 45 stopni."
+      },
+      {
+        "title": "Parametry zaawansowane",
+        "content": "Nic nie zmieniamy."
+      },
+      {
+        "title": "Zakończenie planowania",
+        "content": "1.Na górze opcji lotu naciskamy Done. \n2. W lewym górnym rogu naciskamy x."
+      }
+    ]
+  },
+  {
+    "category": "Realizacja misji map",
+    "hints": [
+      {
+        "title": "Połączenie z dronem",
+        "content": "Włączamy dorna i czekamy, aż w prawym górnym rogu głównego panelu asplikacji zobaczymy, że dron jest połączony z kontrolerem"
+      },
+      {
+        "title": "Wybór misji",
+        "content": "Z listy misji wybieramy naszą nowo stworzoną misję"
+      },
+      {
+        "title": "Rozpoczęcie misji",
+        "content": "Gdy nasza misja się załaduje naciskamy przycisk Play"
+      },
+      {
+        "title": "Wymiana baterii",
+        "content": "Jeśli poziom baterii w czasie lotu spadnie poniżej 20%, to pauzujemy misję i przyciskiem return home po prawej stronie automatycznie wracamy do punktu startowego. Uważamy by dron po drodze o nic nie zahaczył."
+      },
+      {
+        "title": "Niedokończone misje",
+        "content": "Wszystkie misje ukończonie i przerwane w trakcie realizacji możemy zobaczyć wybierając trzecią zakładkę w panelu głównym aplikacji."
+      }
+    ]
+  },
+  {
+    "category": "Nalot uzupełniający",
+    "hints": [
+      {
+        "title": "Jak wykonać",
+        "content": "1.Po prawej stronie widoku drona w trybie podstawowym bez misji ustawić robienie zdjęć w interwale co 5 s.\n2. Wykonuj zdjęcia z pochyleniem gimbala ok 20 stopni i w odległóści ok 10 m od budynku. Na zdjęciach łap na raz 3 kondygnacje.\n3. Wykonuj nalot wokół budynku. 1 taki okrąg co 2 kondygnacje."
+      }
+    ]
+  },
+  {
+    "category": "Zakończenie misji",
+    "hints": [
+      {
+        "title": "Czech out Dronetower",
+        "content": "Zakończ lot w aplikacji Drone Tower"
+      },
+      {
+        "title": "Tarczki",
+        "content": "Pozbieraj rozłożone przez siebie tarczki z markerami fotogrametrycznymi"
+      }
+    ]
+  },
+  {
+    "category": "Dalsze kroki",
+    "hints": [
+      {
+        "title": "Zgranie zdjęć z drona",
+        "content": "Zdjęcia z drona wgraj na komputer podłączając do drona kabel z wejściem USB typu C"
+      },
+      {
+        "title": "Wgranie zdjęć do portalu Lotografia",
+        "content": "1. Zaloguj się na swoje konto w portalu Lotografia.\n2. Stwórz nowy projekt i dodaj w opisie jaki element budynku ma zostać zmierzony.\n3. Wgraj zdjęcia z nalotu.\n4. Wyślij projekt do realizacj."
       }
     ]
   }
