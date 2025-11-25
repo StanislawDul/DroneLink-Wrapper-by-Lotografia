@@ -1,7 +1,6 @@
 package com.dev.lotografia
 
 import android.app.Application
-import android.content.Context
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.Handler
@@ -21,7 +20,6 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleRegistry
@@ -41,9 +39,6 @@ import com.dev.lotografia.components.BubbleWithExpansion
 import com.dev.lotografia.components.CloseZoneView
 import com.dev.lotografia.viewmodels.HintViewModel
 import kotlin.math.hypot
-
-fun Dp.toPx(context: Context): Float =
-  this.value * context.resources.displayMetrics.density
 
 class BubbleService : LifecycleService(), ViewModelStoreOwner, SavedStateRegistryOwner {
   override val viewModelStore = ViewModelStore()
@@ -164,9 +159,9 @@ class BubbleService : LifecycleService(), ViewModelStoreOwner, SavedStateRegistr
           },
           setPosition = {
             bubbleParams.y = (screenSize.value.height * 0.2f).toInt()
-            if(bubbleParams.x < (screenSize.value.width * 0.5f).toInt())
+            if (bubbleParams.x < (screenSize.value.width * 0.5f).toInt())
               bubbleParams.x = 0
-            else if(bubbleParams.x > (screenSize.value.width * 0.5f).toInt())
+            else if (bubbleParams.x > (screenSize.value.width * 0.5f).toInt())
               bubbleParams.x = screenSize.value.width.toInt() - bubbleSize.value.toInt()
             windowManager.updateViewLayout(this@apply, bubbleParams)
             paramsX = bubbleParams.x
@@ -214,7 +209,7 @@ class BubbleService : LifecycleService(), ViewModelStoreOwner, SavedStateRegistr
     val screenWidth = screenSize.value.width
     val screenHeight = screenSize.value.height
     val closeCenterX = (screenWidth / 2)
-    val closeCenterY = screenHeight - 150.dp.toPx(this)
+    val closeCenterY = screenHeight - 150
 
     val distance = hypot(bubbleCenterX - closeCenterX, bubbleCenterY - closeCenterY)
 
